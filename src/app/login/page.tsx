@@ -1,0 +1,1 @@
+import AuthForm from '@/components/auth-form';export default function Login(){return <main className="page-wrap"><span className="eyebrow">Welcome back</span><h1 className="page-title">Sign in</h1><AuthForm mode="login"/><p className="small">New to Naa Luxe? <a href="/register">Create an account</a></p></main>}

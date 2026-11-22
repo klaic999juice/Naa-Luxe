@@ -1,0 +1,1 @@
+import AuthForm from '@/components/auth-form';export default function Register(){return <main className="page-wrap"><span className="eyebrow">Join our world</span><h1 className="page-title">Create your account</h1><p className="muted">Your account lets you track orders and join the Naa Luxe community.</p><AuthForm mode="register"/></main>}
