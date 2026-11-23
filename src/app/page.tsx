@@ -1,4 +1,19 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { ProductGrid } from '@/components/product-grid';
-export default async function Home(){let products:any[]=[];try{const supabase=await createClient();const {data}=await supabase.from('products').select('id,name,slug,price,discount_price,image_url,category,is_featured').eq('is_published',true).order('created_at',{ascending:false}).limit(8);products=data||[]}catch{}return <main><section className="hero"><div className="hero-copy"><span className="eyebrow">A softer kind of statement</span><h1>Luxury, made<br/>personal.</h1><p>Discover thoughtful design, enduring essentials and modern African elegance — curated for the way you live.</p><Link className="button light" href="/shop">Discover the collection →</Link></div></section><section className="section"><div className="section-head"><div><span className="eyebrow">The Naa Luxe edit</span><h2>Considered, always.</h2><p>Pieces to keep, love and live in.</p></div><Link className="small" href="/shop">SHOP ALL →</Link></div><ProductGrid products={products}/>{products.length===0&&<p className="muted">Our first collection is on its way. Visit the admin dashboard to add products.</p>}</section><section className="promo"><div className="promo-image"/><div className="promo-copy"><span className="eyebrow">Made for your moment</span><h2>Everyday, elevated.</h2><p>From slow mornings to special evenings, find pieces that feel like you. A considered collection with a distinctly Naa Luxe point of view.</p><Link className="button" href="/shop">Explore the edit →</Link></div></section><section className="newsletter"><span className="eyebrow">A note from Naa Luxe</span><h2>Join our inner circle</h2><p>New arrivals, thoughtful stories and a little something for your next order.</p><form action="/api/newsletter" method="post"><input name="email" type="email" required placeholder="Your email address"/><button>Subscribe</button></form></section></main>}
+import { Newsletter } from '@/components/newsletter';
+
+export default async function Home() {
+  let products: any[] = [];
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.from('products').select('id,name,slug,price,discount_price,image_url,category,is_featured').eq('is_published', true).order('created_at', { ascending: false }).limit(8);
+    products = data || [];
+  } catch { /* The storefront remains usable while the catalog service is unavailable. */ }
+  return <main>
+    <section className="hero"><div className="hero-copy"><span className="eyebrow">A softer kind of statement</span><h1>Luxury, made<br/>personal.</h1><p>Discover thoughtful design, enduring essentials and modern African elegance — curated for the way you live.</p><Link className="button light" href="/shop">Discover the collection →</Link></div></section>
+    <section className="section"><div className="section-head"><div><span className="eyebrow">The Naa Luxe edit</span><h2>Considered, always.</h2><p>Pieces to keep, love and live in.</p></div><Link className="small" href="/shop">SHOP ALL →</Link></div><ProductGrid products={products}/>{products.length === 0 && <p className="muted">Our first collection is on its way. Visit the admin dashboard to add products.</p>}</section>
+    <section className="promo"><div className="promo-image"/><div className="promo-copy"><span className="eyebrow">Made for your moment</span><h2>Everyday, elevated.</h2><p>From slow mornings to special evenings, find pieces that feel like you. A considered collection with a distinctly Naa Luxe point of view.</p><Link className="button" href="/shop">Explore the edit →</Link></div></section>
+    <Newsletter/>
+  </main>;
+}
